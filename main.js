@@ -8,7 +8,6 @@ const closeBtn = document.querySelector(".close");
 
 let allEpisodes = [];
 
-// Загрузка всех эпизодов
 async function loadEpisodes() {
   let page = 1;
   let results = [];
@@ -23,7 +22,6 @@ async function loadEpisodes() {
   renderEpisodes(allEpisodes);
 }
 
-// Отображение карточек
 function renderEpisodes(episodes) {
   cardsContainer.innerHTML = "";
 
@@ -47,12 +45,10 @@ function renderEpisodes(episodes) {
   });
 }
 
-// Поиск по имени
 searchInput.addEventListener("input", () => {
   filterEpisodes();
 });
 
-// Фильтрация по сезону
 seasonSelect.addEventListener("change", () => {
   filterEpisodes();
 });
@@ -74,7 +70,6 @@ function filterEpisodes() {
   renderEpisodes(filtered);
 }
 
-// Модальное окно
 async function openModal(ep) {
   modal.style.display = "flex";
   document.querySelector(".episode-title").textContent = ep.name;
@@ -108,5 +103,4 @@ window.addEventListener("click", (e) => {
   }
 });
 
-// Запуск
 loadEpisodes();
