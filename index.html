@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rick and Morty Episodes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="filters">
+    <input type="text" id="searchInput" placeholder="Enter name" />
+    <select id="seasonSelect">
+      <option value="all">All season</option>
+      <option value="1">1 season</option>
+      <option value="2">2 season</option>
+      <option value="3">3 season</option>
+      <option value="4">4 season</option>
+      <option value="5">5 season</option>
+      <option value="6">6 season</option>
+    </select>
+  </header>
+
+  <main>
+    <div class="cards"></div>
+
+    <div class="not-found">
+      <img src="images/kisspng-portal-morty-smith-rick-sanchez-t-shirt-hoodie-portal-5ac4b0cbe2bbd5 2.png" alt="Not found" />
+      <p>Oops! Try looking for something else...</p>
+    </div>
+  </main>
+
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 class="episode-title"></h2>
+      <div class="episode-info">
+        <p><strong>ID:</strong> <span class="episode-id"></span></p>
+        <p><strong>Air date:</strong> <span class="episode-date"></span></p>
+      </div>
+      <h3>Characters</h3>
+      <div class="characters"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
