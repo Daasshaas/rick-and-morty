@@ -5,8 +5,11 @@ const seasonSelect = document.getElementById("seasonSelect");
 const notFound = document.querySelector(".not-found");
 const modal = document.querySelector(".modal");
 const closeBtn = document.querySelector(".close");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
 
 let allEpisodes = [];
+let displayedCount = 0;
+const PER_PAGE = 20;
 
 async function loadEpisodes() {
   let page = 1;
@@ -19,7 +22,9 @@ async function loadEpisodes() {
     page++;
   }
   allEpisodes = results;
-  renderEpisodes(allEpisodes);
+  displayedCount = 0;
+  renderEpisodes(allEpisodes.slice(0, PER_PAGE));
+  toggleLoadMoreButton(allEpisodes.length);
 }
 
 function renderEpisodes(episodes) {
@@ -27,6 +32,7 @@ function renderEpisodes(episodes) {
 
   if (episodes.length === 0) {
     notFound.style.display = "block";
+    loadMoreBtn.style.display = "none";
     return;
   } else {
     notFound.style.display = "none";
@@ -45,13 +51,13 @@ function renderEpisodes(episodes) {
   });
 }
 
-searchInput.addEventListener("input", () => {
-  filterEpisodes();
-});
-
-seasonSelect.addEventListener("change", () => {
-  filterEpisodes();
-});
+function toggleLoadMoreButton(total) {
+  if (displayedCount < total) {
+    loadMoreBtn.style.display = "block";
+  } else {
+    loadMoreBtn.style.display = "none";
+  }
+}
 
 function filterEpisodes() {
   const searchValue = searchInput.value.toLowerCase();
@@ -67,7 +73,16 @@ function filterEpisodes() {
     );
   }
 
-  renderEpisodes(filtered);
+  displayedCount = 0;
+  renderEpisodes(filtered.slice(0, PER_PAGE));
+  toggleLoadMoreButton(filtered.length);
+
+  loadMoreBtn.onclick = () => {
+    displayedCount += PER_PAGE;
+    const nextEpisodes = filtered.slice(0, displayedCount + PER_PAGE);
+    renderEpisodes(nextEpisodes);
+    toggleLoadMoreButton(filtered.length);
+  };
 }
 
 async function openModal(ep) {
@@ -101,6 +116,16 @@ window.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
   }
+});
+
+searchInput.addEventListener("input", filterEpisodes);
+seasonSelect.addEventListener("change", filterEpisodes);
+
+loadMoreBtn.addEventListener("click", () => {
+  displayedCount += PER_PAGE;
+  const nextEpisodes = allEpisodes.slice(0, displayedCount + PER_PAGE);
+  renderEpisodes(nextEpisodes);
+  toggleLoadMoreButton(allEpisodes.length);
 });
 
 loadEpisodes();

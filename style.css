@@ -124,3 +124,21 @@ input, select {
   border-radius: 10px;
   border: 2px solid #a4ff00;
 }
+
+.load-more {
+  display: none;
+  background-color: #d6ff00;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 2rem auto;
+  display: block;
+  transition: background 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #b8e000;
+}
